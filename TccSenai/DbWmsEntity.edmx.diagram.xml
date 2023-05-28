@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="488b48d2d61f45d4a65f6e17c1e9987d" Name="Diagram1">
+        <EntityTypeShape EntityType="dbWmsModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblAvaliacao" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblContato" Width="1.5" PointX="5.25" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblFornecedor" Width="1.5" PointX="3" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblFornecedorItem" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblGrupo" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblItemRecebido" Width="1.5" PointX="5.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblPosicaoEstoque" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblProduto" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblRecebimento_gerencial" Width="1.5" PointX="8" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblRecebimento_nf" Width="1.5" PointX="11" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblTipo" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblTipoGrupo" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblUnidade" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbWmsModel.tblUsuario" Width="1.5" PointX="5.75" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="dbWmsModel.FK_tblFornecedor_tblAvaliacao" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblContato_tblFornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblFornecedorItem_tblFornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblRecebimento_gerencial_tblFornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblRecebimento_nf_tblFornecedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblFornecedorItem_tblProduto" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblProduto_tblGrupo" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblTipoGrupo_tblGrupo" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblRecebimento_gerencial_tblItemRecebido" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblRecebimento_nf_tblItemRecebido" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblProduto_tblPosicaoEstoque" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblProduto_tblTipo" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblProduto_tblUnidade" ManuallyRouted="false" />
+        <AssociationConnector Association="dbWmsModel.FK_tblTipoGrupo_tblTipo" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

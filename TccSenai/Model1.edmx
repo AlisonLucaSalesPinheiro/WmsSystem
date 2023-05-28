@@ -1,0 +1,1047 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbWmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tblAvaliacao">
+          <Key>
+            <PropertyRef Name="idAvaliacao" />
+          </Key>
+          <Property Name="idAvaliacao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="frete" Type="int" Nullable="false" />
+          <Property Name="prazoResposta" Type="int" Nullable="false" />
+          <Property Name="preco" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblContato">
+          <Key>
+            <PropertyRef Name="idContato" />
+          </Key>
+          <Property Name="idContato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="telefone" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFornecedor">
+          <Key>
+            <PropertyRef Name="idFornecedor" />
+          </Key>
+          <Property Name="idFornecedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="inscricaoEstadual" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nomeFantasia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="razaoSocial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="responsavel" Type="varchar" MaxLength="50" />
+          <Property Name="cep" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="bairro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="logradouro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="municipio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="uf" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="cnpj" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="idAvaliacao" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbWms.dbo.tblFornecedorItem' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="tblFornecedorItem">
+          <Key>
+            <PropertyRef Name="idFornecedorItem" />
+            <PropertyRef Name="valorUnitario" />
+            <PropertyRef Name="leadTime" />
+            <PropertyRef Name="idProduto" />
+            <PropertyRef Name="idFornecedor" />
+          </Key>
+          <Property Name="idFornecedorItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="valorUnitario" Type="int" Nullable="false" />
+          <Property Name="leadTime" Type="int" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblGrupo">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Name="idGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeGrupo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblItemRecebido">
+          <Key>
+            <PropertyRef Name="idItemRecebido" />
+          </Key>
+          <Property Name="idItemRecebido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPosicaoEstoque">
+          <Key>
+            <PropertyRef Name="idPosicao" />
+          </Key>
+          <Property Name="idPosicao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rua" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="bloco" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="andar" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="apartamento" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="posicaoEstoq" Type="varchar" MaxLength="15" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProduto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeProduto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+          <Property Name="statusProduto" Type="bit" />
+          <Property Name="idPosicao" Type="int" Nullable="false" />
+          <Property Name="idUnidade" Type="int" Nullable="false" />
+          <Property Name="idTipo" Type="int" Nullable="false" />
+          <Property Name="idGrupo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRecebimentoGerencial">
+          <Key>
+            <PropertyRef Name="idRecebimentoGerencial" />
+          </Key>
+          <Property Name="idRecebimentoGerencial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroRecebimento" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="dataRecebimento" Type="datetime" Nullable="false" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+          <Property Name="observacao" Type="varchar" MaxLength="50" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="idItemRecebido" Type="int" Nullable="false" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRecebimentoNf">
+          <Key>
+            <PropertyRef Name="idRecebimentoNf" />
+          </Key>
+          <Property Name="idRecebimentoNf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numeroNf" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="dataEmissao" Type="date" Nullable="false" />
+          <Property Name="idFornecedor" Type="int" Nullable="false" />
+          <Property Name="idItemRecebido" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTipo">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeTipo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblTipoGrupo">
+          <Key>
+            <PropertyRef Name="idTipoGrupo" />
+          </Key>
+          <Property Name="idTipoGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTipo" Type="int" Nullable="false" />
+          <Property Name="idGrupo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUnidade">
+          <Key>
+            <PropertyRef Name="idUnidade" />
+          </Key>
+          <Property Name="idUnidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeUnidade" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="abreviacao" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="idProduto" Type="int" />
+        </EntityType>
+        <EntityType Name="tblUsuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_avaliacao">
+          <End Role="tblAvaliacao" Type="Self.tblAvaliacao" Multiplicity="1" />
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAvaliacao">
+              <PropertyRef Name="idAvaliacao" />
+            </Principal>
+            <Dependent Role="tblFornecedor">
+              <PropertyRef Name="idAvaliacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_contato_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblContato" Type="Self.tblContato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblContato">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_grupo">
+          <End Role="tblGrupo" Type="Self.tblGrupo" Multiplicity="1" />
+          <End Role="tblTipoGrupo" Type="Self.tblTipoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGrupo">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="tblTipoGrupo">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_item_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblFornecedorItem" Type="Self.tblFornecedorItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblFornecedorItem">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_item_produto">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="1" />
+          <End Role="tblFornecedorItem" Type="Self.tblFornecedorItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="tblFornecedorItem">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_grupo">
+          <End Role="tblGrupo" Type="Self.tblGrupo" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGrupo">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_posicao">
+          <End Role="tblPosicaoEstoque" Type="Self.tblPosicaoEstoque" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPosicaoEstoque">
+              <PropertyRef Name="idPosicao" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idPosicao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_tipo">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_unidade">
+          <End Role="tblUnidade" Type="Self.tblUnidade" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUnidade">
+              <PropertyRef Name="idUnidade" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idUnidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_gerencial_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblRecebimentoGerencial" Type="Self.tblRecebimentoGerencial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblRecebimentoGerencial">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_gerencial_recebimento">
+          <End Role="tblItemRecebido" Type="Self.tblItemRecebido" Multiplicity="1" />
+          <End Role="tblRecebimentoGerencial" Type="Self.tblRecebimentoGerencial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItemRecebido">
+              <PropertyRef Name="idItemRecebido" />
+            </Principal>
+            <Dependent Role="tblRecebimentoGerencial">
+              <PropertyRef Name="idItemRecebido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_nf_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblRecebimentoNf" Type="Self.tblRecebimentoNf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblRecebimentoNf">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_nf_recebimento">
+          <End Role="tblItemRecebido" Type="Self.tblItemRecebido" Multiplicity="1" />
+          <End Role="tblRecebimentoNf" Type="Self.tblRecebimentoNf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItemRecebido">
+              <PropertyRef Name="idItemRecebido" />
+            </Principal>
+            <Dependent Role="tblRecebimentoNf">
+              <PropertyRef Name="idItemRecebido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblTipoGrupo" Type="Self.tblTipoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblTipoGrupo">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbWmsModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAvaliacao" EntityType="Self.tblAvaliacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblContato" EntityType="Self.tblContato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFornecedor" EntityType="Self.tblFornecedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGrupo" EntityType="Self.tblGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblItemRecebido" EntityType="Self.tblItemRecebido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPosicaoEstoque" EntityType="Self.tblPosicaoEstoque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProduto" EntityType="Self.tblProduto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRecebimentoGerencial" EntityType="Self.tblRecebimentoGerencial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRecebimentoNf" EntityType="Self.tblRecebimentoNf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTipo" EntityType="Self.tblTipo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTipoGrupo" EntityType="Self.tblTipoGrupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUnidade" EntityType="Self.tblUnidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFornecedorItem" EntityType="Self.tblFornecedorItem" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [tblFornecedorItem].[idFornecedorItem] AS [idFornecedorItem], 
+    [tblFornecedorItem].[valorUnitario] AS [valorUnitario], 
+    [tblFornecedorItem].[leadTime] AS [leadTime], 
+    [tblFornecedorItem].[idProduto] AS [idProduto], 
+    [tblFornecedorItem].[idFornecedor] AS [idFornecedor]
+    FROM [dbo].[tblFornecedorItem] AS [tblFornecedorItem]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_avaliacao" Association="Self.fk_avaliacao">
+            <End Role="tblAvaliacao" EntitySet="tblAvaliacao" />
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_contato_fornecedor" Association="Self.fk_contato_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblContato" EntitySet="tblContato" />
+          </AssociationSet>
+          <AssociationSet Name="fk_grupo" Association="Self.fk_grupo">
+            <End Role="tblGrupo" EntitySet="tblGrupo" />
+            <End Role="tblTipoGrupo" EntitySet="tblTipoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_item_fornecedor" Association="Self.fk_item_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblFornecedorItem" EntitySet="tblFornecedorItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_item_produto" Association="Self.fk_item_produto">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblFornecedorItem" EntitySet="tblFornecedorItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_grupo" Association="Self.fk_produto_grupo">
+            <End Role="tblGrupo" EntitySet="tblGrupo" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_posicao" Association="Self.fk_produto_posicao">
+            <End Role="tblPosicaoEstoque" EntitySet="tblPosicaoEstoque" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_tipo" Association="Self.fk_produto_tipo">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_unidade" Association="Self.fk_produto_unidade">
+            <End Role="tblUnidade" EntitySet="tblUnidade" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_gerencial_fornecedor" Association="Self.fk_recebimento_gerencial_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblRecebimentoGerencial" EntitySet="tblRecebimentoGerencial" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_gerencial_recebimento" Association="Self.fk_recebimento_gerencial_recebimento">
+            <End Role="tblItemRecebido" EntitySet="tblItemRecebido" />
+            <End Role="tblRecebimentoGerencial" EntitySet="tblRecebimentoGerencial" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_nf_fornecedor" Association="Self.fk_recebimento_nf_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblRecebimentoNf" EntitySet="tblRecebimentoNf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_nf_recebimento" Association="Self.fk_recebimento_nf_recebimento">
+            <End Role="tblItemRecebido" EntitySet="tblItemRecebido" />
+            <End Role="tblRecebimentoNf" EntitySet="tblRecebimentoNf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo" Association="Self.fk_tipo">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblTipoGrupo" EntitySet="tblTipoGrupo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbWmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tblAvaliacao">
+          <Key>
+            <PropertyRef Name="idAvaliacao" />
+          </Key>
+          <Property Name="idAvaliacao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="frete" Type="Int32" Nullable="false" />
+          <Property Name="prazoResposta" Type="Int32" Nullable="false" />
+          <Property Name="preco" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFornecedor" Relationship="Self.fk_avaliacao" FromRole="tblAvaliacao" ToRole="tblFornecedor" />
+        </EntityType>
+        <EntityType Name="tblContato">
+          <Key>
+            <PropertyRef Name="idContato" />
+          </Key>
+          <Property Name="idContato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFornecedor" Relationship="Self.fk_contato_fornecedor" FromRole="tblContato" ToRole="tblFornecedor" />
+        </EntityType>
+        <EntityType Name="tblFornecedor">
+          <Key>
+            <PropertyRef Name="idFornecedor" />
+          </Key>
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="inscricaoEstadual" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nomeFantasia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="razaoSocial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="responsavel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cep" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="logradouro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="uf" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cnpj" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idAvaliacao" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblAvaliacao" Relationship="Self.fk_avaliacao" FromRole="tblFornecedor" ToRole="tblAvaliacao" />
+          <NavigationProperty Name="tblContato" Relationship="Self.fk_contato_fornecedor" FromRole="tblFornecedor" ToRole="tblContato" />
+          <NavigationProperty Name="tblFornecedorItem" Relationship="Self.fk_item_fornecedor" FromRole="tblFornecedor" ToRole="tblFornecedorItem" />
+          <NavigationProperty Name="tblRecebimentoGerencial" Relationship="Self.fk_recebimento_gerencial_fornecedor" FromRole="tblFornecedor" ToRole="tblRecebimentoGerencial" />
+          <NavigationProperty Name="tblRecebimentoNf" Relationship="Self.fk_recebimento_nf_fornecedor" FromRole="tblFornecedor" ToRole="tblRecebimentoNf" />
+        </EntityType>
+        <EntityType Name="tblGrupo">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Name="idGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeGrupo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblTipoGrupo" Relationship="Self.fk_grupo" FromRole="tblGrupo" ToRole="tblTipoGrupo" />
+          <NavigationProperty Name="tblProduto" Relationship="Self.fk_produto_grupo" FromRole="tblGrupo" ToRole="tblProduto" />
+        </EntityType>
+        <EntityType Name="tblItemRecebido">
+          <Key>
+            <PropertyRef Name="idItemRecebido" />
+          </Key>
+          <Property Name="idItemRecebido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblRecebimentoGerencial" Relationship="Self.fk_recebimento_gerencial_recebimento" FromRole="tblItemRecebido" ToRole="tblRecebimentoGerencial" />
+          <NavigationProperty Name="tblRecebimentoNf" Relationship="Self.fk_recebimento_nf_recebimento" FromRole="tblItemRecebido" ToRole="tblRecebimentoNf" />
+        </EntityType>
+        <EntityType Name="tblPosicaoEstoque">
+          <Key>
+            <PropertyRef Name="idPosicao" />
+          </Key>
+          <Property Name="idPosicao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rua" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bloco" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="andar" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apartamento" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="posicaoEstoq" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="tblProduto" Relationship="Self.fk_produto_posicao" FromRole="tblPosicaoEstoque" ToRole="tblProduto" />
+        </EntityType>
+        <EntityType Name="tblProduto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeProduto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <Property Name="statusProduto" Type="Boolean" />
+          <Property Name="idPosicao" Type="Int32" Nullable="false" />
+          <Property Name="idUnidade" Type="Int32" Nullable="false" />
+          <Property Name="idTipo" Type="Int32" Nullable="false" />
+          <Property Name="idGrupo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblGrupo" Relationship="Self.fk_produto_grupo" FromRole="tblProduto" ToRole="tblGrupo" />
+          <NavigationProperty Name="tblPosicaoEstoque" Relationship="Self.fk_produto_posicao" FromRole="tblProduto" ToRole="tblPosicaoEstoque" />
+          <NavigationProperty Name="tblFornecedorItem" Relationship="Self.fk_item_produto" FromRole="tblProduto" ToRole="tblFornecedorItem" />
+          <NavigationProperty Name="tblTipo" Relationship="Self.fk_produto_tipo" FromRole="tblProduto" ToRole="tblTipo" />
+          <NavigationProperty Name="tblUnidade" Relationship="Self.fk_produto_unidade" FromRole="tblProduto" ToRole="tblUnidade" />
+        </EntityType>
+        <EntityType Name="tblRecebimentoGerencial">
+          <Key>
+            <PropertyRef Name="idRecebimentoGerencial" />
+          </Key>
+          <Property Name="idRecebimentoGerencial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numeroRecebimento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dataRecebimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <Property Name="observacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="idItemRecebido" Type="Int32" Nullable="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFornecedor" Relationship="Self.fk_recebimento_gerencial_fornecedor" FromRole="tblRecebimentoGerencial" ToRole="tblFornecedor" />
+          <NavigationProperty Name="tblItemRecebido" Relationship="Self.fk_recebimento_gerencial_recebimento" FromRole="tblRecebimentoGerencial" ToRole="tblItemRecebido" />
+        </EntityType>
+        <EntityType Name="tblRecebimentoNf">
+          <Key>
+            <PropertyRef Name="idRecebimentoNf" />
+          </Key>
+          <Property Name="idRecebimentoNf" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numeroNf" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dataEmissao" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
+          <Property Name="idItemRecebido" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFornecedor" Relationship="Self.fk_recebimento_nf_fornecedor" FromRole="tblRecebimentoNf" ToRole="tblFornecedor" />
+          <NavigationProperty Name="tblItemRecebido" Relationship="Self.fk_recebimento_nf_recebimento" FromRole="tblRecebimentoNf" ToRole="tblItemRecebido" />
+        </EntityType>
+        <EntityType Name="tblTipo">
+          <Key>
+            <PropertyRef Name="idTipo" />
+          </Key>
+          <Property Name="idTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeTipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblProduto" Relationship="Self.fk_produto_tipo" FromRole="tblTipo" ToRole="tblProduto" />
+          <NavigationProperty Name="tblTipoGrupo" Relationship="Self.fk_tipo" FromRole="tblTipo" ToRole="tblTipoGrupo" />
+        </EntityType>
+        <EntityType Name="tblTipoGrupo">
+          <Key>
+            <PropertyRef Name="idTipoGrupo" />
+          </Key>
+          <Property Name="idTipoGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipo" Type="Int32" Nullable="false" />
+          <Property Name="idGrupo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblGrupo" Relationship="Self.fk_grupo" FromRole="tblTipoGrupo" ToRole="tblGrupo" />
+          <NavigationProperty Name="tblTipo" Relationship="Self.fk_tipo" FromRole="tblTipoGrupo" ToRole="tblTipo" />
+        </EntityType>
+        <EntityType Name="tblUnidade">
+          <Key>
+            <PropertyRef Name="idUnidade" />
+          </Key>
+          <Property Name="idUnidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeUnidade" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="abreviacao" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idProduto" Type="Int32" />
+          <NavigationProperty Name="tblProduto" Relationship="Self.fk_produto_unidade" FromRole="tblUnidade" ToRole="tblProduto" />
+        </EntityType>
+        <EntityType Name="tblUsuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblFornecedorItem">
+          <Key>
+            <PropertyRef Name="idFornecedorItem" />
+            <PropertyRef Name="valorUnitario" />
+            <PropertyRef Name="leadTime" />
+            <PropertyRef Name="idProduto" />
+            <PropertyRef Name="idFornecedor" />
+          </Key>
+          <Property Name="idFornecedorItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="valorUnitario" Type="Int32" Nullable="false" />
+          <Property Name="leadTime" Type="Int32" Nullable="false" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="idFornecedor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFornecedor" Relationship="Self.fk_item_fornecedor" FromRole="tblFornecedorItem" ToRole="tblFornecedor" />
+          <NavigationProperty Name="tblProduto" Relationship="Self.fk_item_produto" FromRole="tblFornecedorItem" ToRole="tblProduto" />
+        </EntityType>
+        <Association Name="fk_avaliacao">
+          <End Role="tblAvaliacao" Type="Self.tblAvaliacao" Multiplicity="1" />
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAvaliacao">
+              <PropertyRef Name="idAvaliacao" />
+            </Principal>
+            <Dependent Role="tblFornecedor">
+              <PropertyRef Name="idAvaliacao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_contato_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblContato" Type="Self.tblContato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblContato">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_item_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblFornecedorItem" Type="Self.tblFornecedorItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblFornecedorItem">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_gerencial_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblRecebimentoGerencial" Type="Self.tblRecebimentoGerencial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblRecebimentoGerencial">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_nf_fornecedor">
+          <End Role="tblFornecedor" Type="Self.tblFornecedor" Multiplicity="1" />
+          <End Role="tblRecebimentoNf" Type="Self.tblRecebimentoNf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFornecedor">
+              <PropertyRef Name="idFornecedor" />
+            </Principal>
+            <Dependent Role="tblRecebimentoNf">
+              <PropertyRef Name="idFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_grupo">
+          <End Role="tblGrupo" Type="Self.tblGrupo" Multiplicity="1" />
+          <End Role="tblTipoGrupo" Type="Self.tblTipoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGrupo">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="tblTipoGrupo">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_grupo">
+          <End Role="tblGrupo" Type="Self.tblGrupo" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGrupo">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_gerencial_recebimento">
+          <End Role="tblItemRecebido" Type="Self.tblItemRecebido" Multiplicity="1" />
+          <End Role="tblRecebimentoGerencial" Type="Self.tblRecebimentoGerencial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItemRecebido">
+              <PropertyRef Name="idItemRecebido" />
+            </Principal>
+            <Dependent Role="tblRecebimentoGerencial">
+              <PropertyRef Name="idItemRecebido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_recebimento_nf_recebimento">
+          <End Role="tblItemRecebido" Type="Self.tblItemRecebido" Multiplicity="1" />
+          <End Role="tblRecebimentoNf" Type="Self.tblRecebimentoNf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblItemRecebido">
+              <PropertyRef Name="idItemRecebido" />
+            </Principal>
+            <Dependent Role="tblRecebimentoNf">
+              <PropertyRef Name="idItemRecebido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_posicao">
+          <End Role="tblPosicaoEstoque" Type="Self.tblPosicaoEstoque" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPosicaoEstoque">
+              <PropertyRef Name="idPosicao" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idPosicao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_item_produto">
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="1" />
+          <End Role="tblFornecedorItem" Type="Self.tblFornecedorItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="tblFornecedorItem">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_tipo">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produto_unidade">
+          <End Role="tblUnidade" Type="Self.tblUnidade" Multiplicity="1" />
+          <End Role="tblProduto" Type="Self.tblProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUnidade">
+              <PropertyRef Name="idUnidade" />
+            </Principal>
+            <Dependent Role="tblProduto">
+              <PropertyRef Name="idUnidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo">
+          <End Role="tblTipo" Type="Self.tblTipo" Multiplicity="1" />
+          <End Role="tblTipoGrupo" Type="Self.tblTipoGrupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTipo">
+              <PropertyRef Name="idTipo" />
+            </Principal>
+            <Dependent Role="tblTipoGrupo">
+              <PropertyRef Name="idTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbWmsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tblAvaliacao" EntityType="Self.tblAvaliacao" />
+          <EntitySet Name="tblContato" EntityType="Self.tblContato" />
+          <EntitySet Name="tblFornecedor" EntityType="Self.tblFornecedor" />
+          <EntitySet Name="tblGrupo" EntityType="Self.tblGrupo" />
+          <EntitySet Name="tblItemRecebido" EntityType="Self.tblItemRecebido" />
+          <EntitySet Name="tblPosicaoEstoque" EntityType="Self.tblPosicaoEstoque" />
+          <EntitySet Name="tblProduto" EntityType="Self.tblProduto" />
+          <EntitySet Name="tblRecebimentoGerencial" EntityType="Self.tblRecebimentoGerencial" />
+          <EntitySet Name="tblRecebimentoNf" EntityType="Self.tblRecebimentoNf" />
+          <EntitySet Name="tblTipo" EntityType="Self.tblTipo" />
+          <EntitySet Name="tblTipoGrupo" EntityType="Self.tblTipoGrupo" />
+          <EntitySet Name="tblUnidade" EntityType="Self.tblUnidade" />
+          <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" />
+          <EntitySet Name="tblFornecedorItem" EntityType="Self.tblFornecedorItem" />
+          <AssociationSet Name="fk_avaliacao" Association="Self.fk_avaliacao">
+            <End Role="tblAvaliacao" EntitySet="tblAvaliacao" />
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_contato_fornecedor" Association="Self.fk_contato_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblContato" EntitySet="tblContato" />
+          </AssociationSet>
+          <AssociationSet Name="fk_item_fornecedor" Association="Self.fk_item_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblFornecedorItem" EntitySet="tblFornecedorItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_gerencial_fornecedor" Association="Self.fk_recebimento_gerencial_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblRecebimentoGerencial" EntitySet="tblRecebimentoGerencial" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_nf_fornecedor" Association="Self.fk_recebimento_nf_fornecedor">
+            <End Role="tblFornecedor" EntitySet="tblFornecedor" />
+            <End Role="tblRecebimentoNf" EntitySet="tblRecebimentoNf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_grupo" Association="Self.fk_grupo">
+            <End Role="tblGrupo" EntitySet="tblGrupo" />
+            <End Role="tblTipoGrupo" EntitySet="tblTipoGrupo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_grupo" Association="Self.fk_produto_grupo">
+            <End Role="tblGrupo" EntitySet="tblGrupo" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_gerencial_recebimento" Association="Self.fk_recebimento_gerencial_recebimento">
+            <End Role="tblItemRecebido" EntitySet="tblItemRecebido" />
+            <End Role="tblRecebimentoGerencial" EntitySet="tblRecebimentoGerencial" />
+          </AssociationSet>
+          <AssociationSet Name="fk_recebimento_nf_recebimento" Association="Self.fk_recebimento_nf_recebimento">
+            <End Role="tblItemRecebido" EntitySet="tblItemRecebido" />
+            <End Role="tblRecebimentoNf" EntitySet="tblRecebimentoNf" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_posicao" Association="Self.fk_produto_posicao">
+            <End Role="tblPosicaoEstoque" EntitySet="tblPosicaoEstoque" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_item_produto" Association="Self.fk_item_produto">
+            <End Role="tblProduto" EntitySet="tblProduto" />
+            <End Role="tblFornecedorItem" EntitySet="tblFornecedorItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_tipo" Association="Self.fk_produto_tipo">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produto_unidade" Association="Self.fk_produto_unidade">
+            <End Role="tblUnidade" EntitySet="tblUnidade" />
+            <End Role="tblProduto" EntitySet="tblProduto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo" Association="Self.fk_tipo">
+            <End Role="tblTipo" EntitySet="tblTipo" />
+            <End Role="tblTipoGrupo" EntitySet="tblTipoGrupo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbWmsModelStoreContainer" CdmEntityContainer="dbWmsEntities1">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dbWmsModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAvaliacao">
+            <EntityTypeMapping TypeName="dbWmsModel.tblAvaliacao">
+              <MappingFragment StoreEntitySet="tblAvaliacao">
+                <ScalarProperty Name="idAvaliacao" ColumnName="idAvaliacao" />
+                <ScalarProperty Name="frete" ColumnName="frete" />
+                <ScalarProperty Name="prazoResposta" ColumnName="prazoResposta" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblContato">
+            <EntityTypeMapping TypeName="dbWmsModel.tblContato">
+              <MappingFragment StoreEntitySet="tblContato">
+                <ScalarProperty Name="idContato" ColumnName="idContato" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFornecedor">
+            <EntityTypeMapping TypeName="dbWmsModel.tblFornecedor">
+              <MappingFragment StoreEntitySet="tblFornecedor">
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+                <ScalarProperty Name="inscricaoEstadual" ColumnName="inscricaoEstadual" />
+                <ScalarProperty Name="nomeFantasia" ColumnName="nomeFantasia" />
+                <ScalarProperty Name="razaoSocial" ColumnName="razaoSocial" />
+                <ScalarProperty Name="responsavel" ColumnName="responsavel" />
+                <ScalarProperty Name="cep" ColumnName="cep" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="logradouro" ColumnName="logradouro" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="municipio" ColumnName="municipio" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="idAvaliacao" ColumnName="idAvaliacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGrupo">
+            <EntityTypeMapping TypeName="dbWmsModel.tblGrupo">
+              <MappingFragment StoreEntitySet="tblGrupo">
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+                <ScalarProperty Name="nomeGrupo" ColumnName="nomeGrupo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblItemRecebido">
+            <EntityTypeMapping TypeName="dbWmsModel.tblItemRecebido">
+              <MappingFragment StoreEntitySet="tblItemRecebido">
+                <ScalarProperty Name="idItemRecebido" ColumnName="idItemRecebido" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPosicaoEstoque">
+            <EntityTypeMapping TypeName="dbWmsModel.tblPosicaoEstoque">
+              <MappingFragment StoreEntitySet="tblPosicaoEstoque">
+                <ScalarProperty Name="idPosicao" ColumnName="idPosicao" />
+                <ScalarProperty Name="rua" ColumnName="rua" />
+                <ScalarProperty Name="bloco" ColumnName="bloco" />
+                <ScalarProperty Name="andar" ColumnName="andar" />
+                <ScalarProperty Name="apartamento" ColumnName="apartamento" />
+                <ScalarProperty Name="posicaoEstoq" ColumnName="posicaoEstoq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProduto">
+            <EntityTypeMapping TypeName="dbWmsModel.tblProduto">
+              <MappingFragment StoreEntitySet="tblProduto">
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="nomeProduto" ColumnName="nomeProduto" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="statusProduto" ColumnName="statusProduto" />
+                <ScalarProperty Name="idPosicao" ColumnName="idPosicao" />
+                <ScalarProperty Name="idUnidade" ColumnName="idUnidade" />
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRecebimentoGerencial">
+            <EntityTypeMapping TypeName="dbWmsModel.tblRecebimentoGerencial">
+              <MappingFragment StoreEntitySet="tblRecebimentoGerencial">
+                <ScalarProperty Name="idRecebimentoGerencial" ColumnName="idRecebimentoGerencial" />
+                <ScalarProperty Name="numeroRecebimento" ColumnName="numeroRecebimento" />
+                <ScalarProperty Name="dataRecebimento" ColumnName="dataRecebimento" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="idItemRecebido" ColumnName="idItemRecebido" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRecebimentoNf">
+            <EntityTypeMapping TypeName="dbWmsModel.tblRecebimentoNf">
+              <MappingFragment StoreEntitySet="tblRecebimentoNf">
+                <ScalarProperty Name="idRecebimentoNf" ColumnName="idRecebimentoNf" />
+                <ScalarProperty Name="numeroNf" ColumnName="numeroNf" />
+                <ScalarProperty Name="dataEmissao" ColumnName="dataEmissao" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+                <ScalarProperty Name="idItemRecebido" ColumnName="idItemRecebido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTipo">
+            <EntityTypeMapping TypeName="dbWmsModel.tblTipo">
+              <MappingFragment StoreEntitySet="tblTipo">
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="nomeTipo" ColumnName="nomeTipo" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTipoGrupo">
+            <EntityTypeMapping TypeName="dbWmsModel.tblTipoGrupo">
+              <MappingFragment StoreEntitySet="tblTipoGrupo">
+                <ScalarProperty Name="idTipoGrupo" ColumnName="idTipoGrupo" />
+                <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUnidade">
+            <EntityTypeMapping TypeName="dbWmsModel.tblUnidade">
+              <MappingFragment StoreEntitySet="tblUnidade">
+                <ScalarProperty Name="idUnidade" ColumnName="idUnidade" />
+                <ScalarProperty Name="nomeUnidade" ColumnName="nomeUnidade" />
+                <ScalarProperty Name="abreviacao" ColumnName="abreviacao" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsuario">
+            <EntityTypeMapping TypeName="dbWmsModel.tblUsuario">
+              <MappingFragment StoreEntitySet="tblUsuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nomeUsuario" ColumnName="nomeUsuario" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFornecedorItem">
+            <EntityTypeMapping TypeName="dbWmsModel.tblFornecedorItem">
+              <MappingFragment StoreEntitySet="tblFornecedorItem">
+                <ScalarProperty Name="idFornecedorItem" ColumnName="idFornecedorItem" />
+                <ScalarProperty Name="valorUnitario" ColumnName="valorUnitario" />
+                <ScalarProperty Name="leadTime" ColumnName="leadTime" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="idFornecedor" ColumnName="idFornecedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
